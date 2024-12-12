@@ -17,23 +17,54 @@ const columns = [
       limit: 50,
     },
   },
+  {
+    title: 'Search Posts',
+    type: 'feed',
+    size: 350,
+    feedType: 'posts',
+    columnType: 'searchPosts',
+    params: {
+      q: 'build in public',
+    },
+  },
+  // {
+  //   title: 'Search Posts',
+  //   type: 'feed',
+  //   size: 350,
+  //   feedType: 'posts',
+  //   columnType: 'searchPosts',
+  //   params: {
+  //     q: 'ai agents',
+  //   },
+  // },
 ];
 
 const prepareDefaultColumns = async (userId) => {
-  const defaultColumns = columns.map((column) => ({
-    ...column,
-    userId,
-  }));
-  return Column.create(defaultColumns);
+  // const defaultColumns = columns.map((column) => ({
+  //   ...column,
+  //   userId,
+  // }));
+  // columns.forEach((column) => {
+  for (let column of columns) {
+    const newCol = await Column.findOne({
+      userId,
+      title: column.title,
+      columnType: column.columnType,
+    });
+    if (!newCol) {
+      Column.create({ ...column, userId });
+    }
+  }
+  // return Column.create(defaultColumns);
 };
 
 export async function GET(request) {
   const user = await getSessionUser();
+  // let columns = await Column.find({ userId: user.id }).lean();
+  // if (columns.length === 0) {
+  await prepareDefaultColumns(user.id);
   let columns = await Column.find({ userId: user.id }).lean();
-  if (columns.length === 0) {
-    await prepareDefaultColumns(user.id);
-    columns = await Column.find({ userId: user.id }).lean();
-  }
+  // }
   return NextResponse.json(columns);
 }
 

@@ -46,7 +46,6 @@ const postTypes = [
 ];
 
 const CheckboxOption = ({ label, value, checked, onChange }) => {
-
   return (
     <div
       className={classNames('checkbox-option', {
@@ -63,7 +62,6 @@ const CheckboxOption = ({ label, value, checked, onChange }) => {
 };
 
 const CheckboxOptions = ({ options, key, onChange, isMultiple, value }) => {
-
   const [selectedValues, setSelectedValues] = useState(value);
 
   const handleCheckboxChange = (value) => {
@@ -88,7 +86,11 @@ const CheckboxOptions = ({ options, key, onChange, isMultiple, value }) => {
           key={option.value}
           label={option.label}
           value={option.value}
-          checked={isMultiple ? selectedValues.includes(option.value) : selectedValues === option.value}
+          checked={
+            isMultiple
+              ? selectedValues.includes(option.value)
+              : selectedValues === option.value
+          }
           onChange={handleCheckboxChange}
         />
       ))}
@@ -96,30 +98,49 @@ const CheckboxOptions = ({ options, key, onChange, isMultiple, value }) => {
   );
 };
 
+async function prepareQueryFn(column) {
+  console.log('prepareQueryFn', column);
+  if (column?.columnType === 'getFeed') {
+    return axios
+      .get('https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed', {
+        params: column.params,
+      })
+      .then((res) => res.data);
+  }
+  if (column?.columnType === 'searchPosts') {
+    console.log('searchPosts', column);
+    return axios
+      .get('https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts', {
+        params: {
+          ...column.params,
+          sort: 'top',
+        },
+      })
+      .then(({ data }) => {
+        return {
+          feed: data.posts.map((post) => ({ post })),
+          cursor: data.cursor,
+        };
+      });
+  }
+  return null;
+}
+
 export default function Column({ column }) {
+  console.log('column', column);
   const defaultWidth = window.innerWidth / 4;
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-  async function prepareQueryFn(column) {
-    if (column?.columnType === 'getFeed') {
-      return axios
-        .get('https://public.api.bsky.app/xrpc/app.bsky.feed.getFeed', {
-          params: column.params,
-        })
-        .then((res) => res.data);
-    }
-    return null;
-  }
 
   const {
     data = {},
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['feed', column?.title],
+    queryKey: ['feed', column?._id],
     queryFn: () => prepareQueryFn(column),
   });
+  console.log('data', data);
   const feed = data?.feed || [];
   const cursor = data?.cursor;
 

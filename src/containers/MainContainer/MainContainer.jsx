@@ -73,12 +73,14 @@ const ColumnWrapper = ({ children }) => {
     </div>;
   }
 
+  console.log('columns', columns);
+
   return (
-    <div className="column-wrapper">
+    <>
       {columns?.map((column) => (
         <Column key={column.title} column={column} />
       ))}
-    </div>
+    </>
   );
 };
 
@@ -96,7 +98,7 @@ export default function MainContainer() {
     <QueryClientProvider client={queryClient}>
       <div className="main-container">
         <ColumnWrapper />
-        <AddColumn />
+        {/* <AddColumn /> */}
       </div>
     </QueryClientProvider>
   );

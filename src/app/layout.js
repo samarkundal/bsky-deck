@@ -17,6 +17,19 @@ export const metadata = {
   title: 'BskyDeck - Monitor multiple timelines on a single screen',
   description:
     'BskyDeck is a tool that allows you to monitor multiple Bsky timelines on a single screen. Track and organize content, and engage with your others on Bsky.',
+  openGraph: {
+    title: 'BskyDeck - Monitor multiple timelines on a single screen',
+    description:
+      'BskyDeck is a tool that allows you to monitor multiple Bsky timelines on a single screen. Track and organize content, and engage with your others on Bsky.',
+    images: [
+      {
+        url: 'https://bskydeck.com/cover.png',
+        width: 1200,
+        height: 675,
+        alt: 'BskyDeck - Monitor multiple timelines on a single screen',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {

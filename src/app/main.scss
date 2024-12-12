@@ -1,0 +1,13 @@
+.core-layout{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    .sidebar {
+        width: 70px;
+        background: #eee;
+        height: 100%;
+    }
+    .columns-layout{
+        width: calc(100% - 70px);
+    }
+}

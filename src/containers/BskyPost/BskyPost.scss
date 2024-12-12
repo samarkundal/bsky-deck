@@ -1,0 +1,111 @@
+.bsky-post-container {
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  &:hover {
+    background: #f9f9f9;
+  }
+  .bsky-post {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    .bsky-avatar {
+      img {
+        width: 42px;
+        border-radius: 50%;
+      }
+    }
+    .bsky-post-info {
+      .post-username {
+        display: flex;
+        gap: 6px;
+        .username {
+          font-size: 15px;
+          font-weight: 600;
+        }
+        .username-handle {
+          font-size: 15px;
+          letter-spacing: 0px;
+          color: rgb(66, 87, 108);
+        }
+      }
+      .post-text {
+        position: relative;
+        text-align: start;
+        text-decoration: none;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        margin-top: 4px;
+        line-height: 1.3;
+      }
+    }
+  }
+  .bsky-post-actions {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding-left: 60px;
+    text-align: left;
+    margin-bottom: 10px;
+    .post-action{
+      flex-grow: 1;
+    }
+    button {
+      border: 0px;
+      background: none;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 50px;
+      opacity: 0.6;
+      min-width: 32px;
+      min-height: 32px;
+      margin-left: -5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      svg {
+        flex-grow: 1;
+      }
+      &:hover {
+        background: #fff;
+        opacity: 1;
+      }
+    }
+  }
+  .post-embedding{
+    .external-link-embed{
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-left: 60px;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      .embed-img-container{
+        img {
+          width: 100%;
+        }
+      }
+      .embed-info{
+        padding: 10px;
+        .embed-title{
+          font-size: 15px;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+        .embed-description{
+          font-size: 13px;
+          color: #666;
+          // max 3 lines
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

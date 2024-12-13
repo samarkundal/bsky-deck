@@ -2,6 +2,9 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import './main.scss';
 import Sidebar from '@/components/core/Sidebar/Sidebar';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { PostHogProvider } from './PostHogProvider';
+import PostHogPageView from "./PostHogPageView"
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,12 +39,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className="core-layout">
-          <div className="sidebar">
-            <Sidebar />
+        <PostHogProvider>
+          <div className="core-layout">
+            <div className="sidebar">
+              <Sidebar />
+            </div>
+            <div className="columns-layout">{children}</div>
           </div>
-          <div className="columns-layout">{children}</div>
-        </div>
+        </PostHogProvider>
+        <GoogleAnalytics gaId="G-BKWJ9FPXTM" />
       </body>
     </html>
   );

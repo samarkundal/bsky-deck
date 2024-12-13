@@ -4,12 +4,13 @@ import User from '@/database/models/userSchema';
 import { NextResponse } from 'next/server';
 import { getSessionUser } from '../utils';
 import Column from '@/database/models/columnSchema';
+import { createColumns } from '@/database/utils/column.utils';
 
 const columns = [
   {
     title: 'Trending News',
     type: 'feed',
-    size: 350,
+    size: 450,
     feedType: 'posts',
     columnType: 'getFeed',
     params: {
@@ -20,11 +21,11 @@ const columns = [
   {
     title: 'Search Posts',
     type: 'feed',
-    size: 350,
+    size: 450,
     feedType: 'posts',
     columnType: 'searchPosts',
     params: {
-      q: 'build in public',
+      query: 'build in public',
     },
   },
   // {
@@ -40,11 +41,7 @@ const columns = [
 ];
 
 const prepareDefaultColumns = async (userId) => {
-  // const defaultColumns = columns.map((column) => ({
-  //   ...column,
-  //   userId,
-  // }));
-  // columns.forEach((column) => {
+  let columnPosition = 1;
   for (let column of columns) {
     const newCol = await Column.findOne({
       userId,
@@ -52,10 +49,22 @@ const prepareDefaultColumns = async (userId) => {
       columnType: column.columnType,
     });
     if (!newCol) {
-      Column.create({ ...column, userId });
+      console.log('creating new column');
+      await Column.create({ ...column, userId, columnPosition });
+      columnPosition++;
     }
   }
-  // return Column.create(defaultColumns);
+};
+
+const getColumnName = (column) => {
+  switch (column.columnType) {
+    case 'searchPosts':
+      return `${column._id}-${column.title}-${column.params?.query}`;
+    case 'hashtagPosts':
+      return `${column._id}-${column.title}-${column.params?.tags.join('_')}`;
+    default:
+      return `${column._id}-${column.title}`;
+  }
 };
 
 export async function GET(request) {
@@ -63,8 +72,12 @@ export async function GET(request) {
   // let columns = await Column.find({ userId: user.id }).lean();
   // if (columns.length === 0) {
   await prepareDefaultColumns(user.id);
-  let columns = await Column.find({ userId: user.id }).lean();
-  // }
+  let columns = (
+    await Column.find({ userId: user.id }).sort({ columnPosition: 1 })
+  ).map((column) => ({
+    ...column._doc,
+    columnName: getColumnName(column),
+  }));
   return NextResponse.json(columns);
 }
 
@@ -74,4 +87,19 @@ export async function PUT(request) {
     new: true,
   });
   return NextResponse.json(column);
+}
+
+export async function POST(request) {
+  const user = await getSessionUser();
+  const { column } = await request.json();
+  const newColumn = await Column.create({ ...column, userId: user.id });
+  return NextResponse.json(newColumn);
+}
+
+export async function DELETE(request) {
+  // query params
+  const columnId = request.nextUrl.searchParams.get('columnId');
+  console.log('columnId', columnId);
+  await Column.findByIdAndDelete(columnId);
+  return NextResponse.json({ message: 'Column deleted' });
 }

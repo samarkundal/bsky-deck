@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MainContainer.scss';
 import Column from '../Column/Column';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
@@ -73,32 +73,38 @@ const ColumnWrapper = ({ children }) => {
     </div>;
   }
 
-  console.log('columns', columns);
-
   return (
     <>
       {columns?.map((column) => (
-        <Column key={column.title} column={column} />
+        <Column key={column.columnName} column={column} />
       ))}
     </>
   );
 };
 
 export default function MainContainer() {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const session = getSessionFromLocalStorage();
     if (!session) {
       getSession().then(({ session }) => {
         storeSessionToLocalStorage(session);
+        setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
   }, []);
+
+  if (loading) {
+    return '';
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="main-container">
         <ColumnWrapper />
-        {/* <AddColumn /> */}
+        <AddColumn />
       </div>
     </QueryClientProvider>
   );

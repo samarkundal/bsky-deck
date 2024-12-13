@@ -11,11 +11,24 @@
         min-width: 200px;
         width: 100%;
         border-bottom: 1px solid #ddd;
-        padding: 5px 10px;
+        padding: 10px 15px;
+        height: 60px;
+        min-height: 60px;
         .column-title{
             flex: 1;
             font-size: 1.1rem;
             font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            .column-title-text{
+                font-size: 16.5px;
+            }
+            .column-title-info{
+                font-size: 14px;
+                color: #888;
+                margin-top: 3px;
+                font-weight: 500;
+            }
         }
         button {
             border: 0px;
@@ -46,12 +59,14 @@
         left: calc(100% + 10px);
         top: 0;
         bottom: 0;
-        width: 300px;
         background: #fff;
         border: 1px solid #ddd;
         z-index: 1000;
-        width: 70%;
+        min-width: calc(100% - 50px);
+        width: calc(100% - 50px);
         padding: 20px 10px;
+        height: 100%;
+        overflow-y: auto;
         .single-setting {
             margin-bottom: 30px;
             h4{
@@ -91,6 +106,64 @@
                     }
                 } 
             }
+
+                .search-input, .hashtag-input{
+                    display: flex;
+                    border: 1px solid #aaa;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    &:focus-within{
+                        border-color: #000;
+                        button {
+                            background: #000;
+                        }
+                    }
+                    input{
+                        width: 100%;
+                        padding: 10px;
+                        border-radius: 5px;
+                        outline: none;
+                        flex-grow: 1;
+                        border: 0px;
+                    }
+                    button{
+                        background: #aaa;
+                        color: #fff;
+                        border: 0px;
+                        padding: 10px;
+                        border-radius: 0px;
+                        cursor: pointer;
+                    }
+                }
+            .hastag-wrapper{
+                .hashtags{
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    margin-top: 10px;
+                    .single-hashtag{
+                        background: #f1f1f1;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 7px;
+                        font-size: 13px;
+                        .close-btn{
+                            display: inline-flex;
+                            align-items: center;
+                            cursor: pointer;
+                            opacity: 0.6;
+                            background: #fff;
+                            padding: 2px;
+                            border-radius: 50%;
+                            &:hover{
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
         }
         .close-icon{
             position: absolute;
@@ -104,6 +177,8 @@
             cursor: pointer;
         }
         .column-actions-list{
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
             .single-column-action{
                 display: flex;
                 align-items: center;
@@ -119,6 +194,31 @@
                     color: #ff0000;
                 }
             }
+        }
+    }
+    .column-setup{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+        h2{
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        p{
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        button{
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     }
 }

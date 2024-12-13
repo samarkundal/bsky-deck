@@ -28,3 +28,19 @@ export const updateColumn = async (data) => {
   console.log('data', data);
   return axios.put(`/api/columns`, data).then((res) => res.data);
 };
+
+export const addColumn = async (data) => {
+  return axios.post(`/api/columns`, data).then((res) => res.data);
+};
+
+export const deleteColumn = async (columnId) => {
+  return axios
+    .delete(`/api/columns?columnId=${columnId}`)
+    .then((res) => res.data);
+};
+
+export const reorderColumn = async (columnId, columnPosition) => {
+  return axios
+    .post(`/api/columns/reorder`, { columnId, columnPosition })
+    .then((res) => res.data);
+};

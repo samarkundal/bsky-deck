@@ -14,7 +14,12 @@ const columnSchema = new mongoose.Schema(
     size: {
       type: Number,
       required: true,
-      default: 250,
+      default: 450,
+    },
+    columnPosition: {
+      type: Number,
+      required: true,
+      default: 1,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -46,10 +51,28 @@ const columnSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
+    strict: false,
+    strictQuery: false,
   }
 );
 
+columnSchema.pre('save', function (next) {
+  console.log('doc is getting saved');
+  this.columnPosition = this.columnPosition || 1;
+  next();
+});
+
+// let Column;
+try {
+  Column = mongoose.model('Column', columnSchema);
+} catch (error) {
+  Column = mongoose.model('Column');
+}
+
 // Check if the model exists before creating a new one
-const Column = mongoose.models.Column || mongoose.model('Column', columnSchema);
+// const Column = mongoose.models.Column || mongoose.model('Column', columnSchema);
 
 export default Column;

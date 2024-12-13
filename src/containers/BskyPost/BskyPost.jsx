@@ -6,10 +6,24 @@ const generateEmbedImageLink = (did, embed) => {
   return `https://cdn.bsky.app/img/feed_thumbnail/plain/${did}/${embed.image}@jpeg`;
 };
 
+const extractPostId = (post) => {
+  try {
+    return post.uri.split('/').pop();
+  } catch (error) {
+    return post.uri;
+  }
+};
+
 export default function BskyPost({ post }) {
   const hasEmbedding = !!post.record.embed;
+
+  const handleOpenNewTab = () => {
+    console.log(post);
+    window.open(`https://bsky.app/profile/${post.author.handle}/post/${extractPostId(post)}`, '_blank');
+  };
+
   return (
-    <div className="bsky-post-container">
+    <div className="bsky-post-container" onClick={handleOpenNewTab}>
       <div className="bsky-post">
         <div className="bsky-avatar">
           <img src={post.author.avatar} alt={post.author.displayName} />

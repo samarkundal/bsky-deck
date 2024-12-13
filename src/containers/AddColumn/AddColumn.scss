@@ -2,7 +2,10 @@
   position: relative;
   background: #f1f2f2;
   width: 400px;
+  min-width: 400px;
   border-right: 3px solid #eee;
+  height: 100%;
+  overflow-y: auto;
   &.isopen {
     background: #fff;
   }
@@ -32,6 +35,10 @@
   .add-column-modal{
     .add-column-modal-header{
       padding: 20px;
+      h2{
+        font-size: 1.35rem;
+        font-weight: 600;
+      }
     }
     .search-container{
       display: flex;
@@ -52,6 +59,11 @@
         font-weight: 500;
       }
     }
+    hr{
+      border: 0px;
+      border-top: 1px solid #ddd;
+      margin: 10px 0px;
+    }
     .add-column-options{
       padding: 20px;
       h4{
@@ -63,14 +75,26 @@
       .add-column-option{
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px;
+        gap: 12px;
+        padding: 6px 10px;
         border-radius: 5px;
         // border: 1px solid #ddd;
         cursor: pointer;
         margin-bottom: 5px;
+        position: relative;
+        .is-locked{
+          position: absolute;
+          right: 10px;
+        }
         &:hover{
           background: #f1f2f2;
+          svg {
+            opacity: 1;
+          }
+        }
+        svg {
+          opacity: 0.6;
+          
         }
         .add-column-info{
           h4{

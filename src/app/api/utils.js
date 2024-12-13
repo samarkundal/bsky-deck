@@ -9,6 +9,6 @@ export const getSessionUser = async () => {
   const user = await User.findOne({ tempSessionId: session }).lean();
   return {
     ...user,
-    id: user._id,
+    id: user?._id,
   };
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import posthog from 'posthog-js';
-import { PostHogProvider } from 'posthog-js/react';
+import { PostHogProvider as PostHogProviderReact } from 'posthog-js/react';
 import { useEffect } from 'react';
 import PostHogPageView from './PostHogPageView';
 
@@ -15,9 +15,9 @@ export function PostHogProvider({ children }) {
   }, []);
 
   return (
-    <PostHogProvider client={posthog}>
+    <PostHogProviderReact client={posthog}>
       <PostHogPageView />
       {children}
-    </PostHogProvider>
+    </PostHogProviderReact>
   );
 }

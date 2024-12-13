@@ -65,7 +65,7 @@ columnSchema.pre('save', function (next) {
   next();
 });
 
-// let Column;
+let Column;
 try {
   Column = mongoose.model('Column', columnSchema);
 } catch (error) {

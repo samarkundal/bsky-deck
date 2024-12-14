@@ -10,6 +10,9 @@ import {
   getSessionFromLocalStorage,
   storeSessionToLocalStorage,
 } from '@/services/api.service';
+import JoinWaitlist from './JoinWaitlist';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const columns = [
   {
@@ -105,6 +108,8 @@ export default function MainContainer() {
       <div className="main-container">
         <ColumnWrapper />
         <AddColumn />
+        <JoinWaitlist />
+        <ToastContainer />
       </div>
     </QueryClientProvider>
   );

@@ -21,4 +21,72 @@
             height: 70px;
         }
     }
+
+    .signup-waitlist-modal-wrapper{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(#000, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .signup-waitlist-modal{
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            min-width: 400px;
+            max-width: 450px;
+            position: relative;
+            .form-info {
+                margin-bottom: 20px;
+                h4{
+                    font-size: 1.35rem;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                }
+                p{
+                    opacity: 0.7;
+                    line-height: 1.4;
+                }
+            }
+            .form-group{
+                margin-bottom: 20px;
+                label{
+                    display: block;
+                    margin-bottom: 5px;
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+            }
+            input, button {
+                height: 50px;
+                outline: none;
+            }
+            button{
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #000;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+                cursor: pointer;
+            }
+            .close-icon{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+            }
+        }
+    }
 }

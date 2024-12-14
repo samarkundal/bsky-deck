@@ -25,6 +25,7 @@ export default function JoinWaitlist() {
     const { name, email } = data;
     axios.post('/api/waitlist', { name, email }).then((res) => {
       console.log(res);
+      localStorage.setItem('bskydeck-waitlist-added', true);
       toast.success('Added to waitlist successfully');
     });
   };

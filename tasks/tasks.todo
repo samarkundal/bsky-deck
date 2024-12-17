@@ -1,4 +1,7 @@
 Tasks:
-    ☐ Handle Add a new Column
-    ☐ Handle Setting Modal for Each Column Type
-    ☐ Add Lock Icon to My Likes, My Notifications, Home Timeline
+    ✔ Design the Topbar with components @started(24-12-17 14:23) @est(10m) @done(24-12-17 14:58) @lasted(35m31s)
+    ✔ Design sidebar with components @done(24-12-17 14:59)
+    ✔ Handle 3 default columns on load @done(24-12-17 15:04)
+    ☐ Handle connect account for user @est(15m) @started(24-12-17 15:04)
+    ☐ Handle account switch for user
+    ☐ Handle Add column

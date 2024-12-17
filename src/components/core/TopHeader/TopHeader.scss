@@ -1,0 +1,85 @@
+.top-header {
+  min-height: 64px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+  min-width: calc(100vw - 70px);
+  .left-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    .deck-title{
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .deck-actions{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+        background: #eee;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+  }
+  .right-sidebar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .right-sidebar-item{
+      padding-right: 8px;
+      cursor: pointer;
+    }
+    .account-dropdown{
+      padding-left: 20px;
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: calc(100% - 10px);
+        top: 5px;
+        background: #ddd;
+      }
+    }
+    button {
+      cursor: pointer;
+    }
+  }
+}
+.connect-account-form {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.6;
+    }
+    input,
+    button {
+      height: 50px;
+      padding: 0px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      outline: none;
+      font-size: 16px;
+    }
+  }
+}

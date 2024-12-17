@@ -16,8 +16,24 @@ export const getSessionFromLocalStorage = () => {
   return localStorage.getItem('bsky-deck-session');
 };
 
+export const clearSessionFromLocalStorage = () => {
+  localStorage.removeItem('bsky-deck-session');
+};
+
 export const getSession = async () => {
   return axios.get('/api/session').then((res) => res.data);
+};
+
+export const getSessionUser = async () => {
+  return axios.get('/api/session/user').then((res) => res.data);
+};
+
+export const addAccount = async (data) => {
+  return axios.post('/api/session', data).then((res) => res.data);
+};
+
+export const getAccounts = async () => {
+  return axios.get('/api/accounts').then((res) => res.data);
 };
 
 export const getColumns = async () => {
@@ -42,5 +58,11 @@ export const deleteColumn = async (columnId) => {
 export const reorderColumn = async (columnId, columnPosition) => {
   return axios
     .post(`/api/columns/reorder`, { columnId, columnPosition })
+    .then((res) => res.data);
+};
+
+export const performAction = async ({ postId, actionType, text, postCid }) => {
+  return axios
+    .post(`/api/bsky/action`, { postId, actionType, text, postCid })
     .then((res) => res.data);
 };

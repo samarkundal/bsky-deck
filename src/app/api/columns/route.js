@@ -28,6 +28,16 @@ const columns = [
       query: 'build in public',
     },
   },
+  {
+    title: 'Posts with Hashtag',
+    type: 'feed',
+    size: 450,
+    feedType: 'posts',
+    columnType: 'hashtagPosts',
+    params: {
+      tags: ['indiehacking'],
+    },
+  },
   // {
   //   title: 'Search Posts',
   //   type: 'feed',
@@ -49,7 +59,6 @@ const prepareDefaultColumns = async (userId) => {
       columnType: column.columnType,
     });
     if (!newCol) {
-      console.log('creating new column');
       await Column.create({ ...column, userId, columnPosition });
       columnPosition++;
     }
@@ -69,10 +78,11 @@ const getColumnName = (column) => {
 
 export async function GET(request) {
   const user = await getSessionUser();
-  // let columns = await Column.find({ userId: user.id }).lean();
-  // if (columns.length === 0) {
-  await prepareDefaultColumns(user.id);
-  let columns = (
+  let columns = await Column.find({ userId: user.id }).lean();
+  if (columns.length === 0) {
+    await prepareDefaultColumns(user.id);
+  }
+  columns = (
     await Column.find({ userId: user.id }).sort({ columnPosition: 1 })
   ).map((column) => ({
     ...column._doc,

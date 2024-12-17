@@ -15,6 +15,7 @@ import {
   TbSearch,
   TbUser,
   TbUserPlus,
+  TbX,
 } from 'react-icons/tb';
 import './AddColumn.scss';
 import classNames from 'classnames';
@@ -79,14 +80,23 @@ const columns = [
     icon: <TbNews {...iconProps} />,
   },
   {
-    title: 'My Timeline',
-    description: 'View your home timeline',
+    title: 'What\'s Hot',
+    description: 'View what\'s hot from your feed',
     type: 'feed',
     feedType: 'posts',
-    columnType: 'getTimeline',
+    columnType: 'whatsHot',
     icon: <TbHome {...iconProps} />,
     isLocked: true,
   },
+  // {
+  //   title: 'My Timeline',
+  //   description: 'View your home timeline',
+  //   type: 'feed',
+  //   feedType: 'posts',
+  //   columnType: 'getTimeline',
+  //   icon: <TbHome {...iconProps} />,
+  //   isLocked: true,
+  // },
   {
     title: 'My Likes',
     description: 'View your liked posts',
@@ -96,15 +106,15 @@ const columns = [
     icon: <TbHeart {...iconProps} />,
     isLocked: true,
   },
-  {
-    title: 'My Notifications',
-    description: 'View your notifications',
-    type: 'feed',
-    feedType: 'posts',
-    columnType: 'myNotifications',
-    icon: <TbBell {...iconProps} />,
-    isLocked: true,
-  },
+  // {
+  //   title: 'My Notifications',
+  //   description: 'View your notifications',
+  //   type: 'feed',
+  //   feedType: 'posts',
+  //   columnType: 'myNotifications',
+  //   icon: <TbBell {...iconProps} />,
+  //   isLocked: true,
+  // },
   // {
   //   type: 'divider',
   // },
@@ -151,9 +161,9 @@ export default function AddColumn() {
   });
 
   const handleAddNewColumn = (column) => () => {
-    if (column.isLocked) {
-      return;
-    }
+    // if (column.isLocked) {
+    //   return;
+    // }
     addColumnMutation.mutate({
       column: {
         title: column.title,
@@ -177,6 +187,9 @@ export default function AddColumn() {
         <div className={'add-column-modal'}>
           <div className="add-column-modal-header">
             <h2>Add Column</h2>
+          </div>
+          <div className="close-icon">
+            <TbX size={20} onClick={() => setIsOpen(false)}/>
           </div>
           {/* <div className="search-container">
             <label htmlFor="search">Search</label>

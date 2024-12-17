@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { TbSettings } from 'react-icons/tb';
+import { TbPlayerPlay, TbSettings } from 'react-icons/tb';
 import './Column.scss';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +10,6 @@ import Loader from '@/components/core/Loader/Loader';
 import ColumnSettings from './ColumnSettings';
 
 async function prepareQueryFn(column) {
-  console.log('prepareQueryFn', column);
   if (column?.columnType === 'getFeed') {
     if (column.params.feed) {
       return axios
@@ -24,9 +23,7 @@ async function prepareQueryFn(column) {
       cursor: null,
     };
   }
-  if (
-    column?.columnType === 'searchPosts'
-  ) {
+  if (column?.columnType === 'searchPosts') {
     return axios
       .get('https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts', {
         params: {
@@ -52,7 +49,41 @@ async function prepareQueryFn(column) {
         },
       })
       .then(({ data }) => {
-        return { feed: data.posts.map((post) => ({ post })), cursor: data.cursor };
+        return {
+          feed: data.posts.map((post) => ({ post })),
+          cursor: data.cursor,
+        };
+      });
+  }
+
+  if (column.columnType === 'whatsHot') {
+    return axios
+      .get('http://localhost:3040/api/bsky/data', {
+        params: {
+          query: 'myFeed',
+        },
+      })
+      .then((res) => {
+        console.log('feed', res.data.data.feed);
+        return {
+          feed: res.data.data.feed,
+          cursor: null,
+        };
+      });
+  }
+  if (column.columnType === 'myLikes') {
+    return axios
+      .get('http://localhost:3040/api/bsky/data', {
+        params: {
+          query: 'myLikes',
+        },
+      })
+      .then((res) => {
+        console.log('feed', res.data.data.feed);
+        return {
+          feed: res.data.data.feed,
+          cursor: null,
+        };
       });
   }
   return null;
@@ -106,6 +137,10 @@ export default function Column({ column }) {
           )} */}
         </div>
         <div className="column-actions">
+          {/* <button className="column-action-button">
+            <TbPlayerPlay size={16} />
+            <span>Run</span>
+          </button> */}
           <button onClick={() => setIsSettingsOpen(!isSettingsOpen)}>
             <TbSettings size={20} />
           </button>

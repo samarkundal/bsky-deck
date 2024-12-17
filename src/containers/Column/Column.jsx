@@ -58,7 +58,7 @@ async function prepareQueryFn(column) {
 
   if (column.columnType === 'whatsHot') {
     return axios
-      .get('http://localhost:3040/api/bsky/data', {
+      .get('/api/bsky/data', {
         params: {
           query: 'myFeed',
         },
@@ -73,7 +73,7 @@ async function prepareQueryFn(column) {
   }
   if (column.columnType === 'myLikes') {
     return axios
-      .get('http://localhost:3040/api/bsky/data', {
+      .get('/api/bsky/data', {
         params: {
           query: 'myLikes',
         },

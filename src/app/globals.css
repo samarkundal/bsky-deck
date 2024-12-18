@@ -4,8 +4,17 @@
   --foreground-light: #343434;
   --hover: #f0f0f0;
   --primary: #000000;
+  --background-alt: #fff;
+  --background-alt-light: #efecf6;
 }
 
+.dark {
+  --background: #000;
+  --background-alt: #0b1825;
+  --background-alt-light: #283645;
+  --foreground: #ededed;
+  --primary: #000000;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

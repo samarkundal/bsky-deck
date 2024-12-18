@@ -1,7 +1,7 @@
 .top-header {
   min-height: 64px;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
+  background: var(--background-alt);
+  border-bottom: 1px solid var(--background-alt-light);
   display: flex;
   justify-content: space-between;
   align-items: center;

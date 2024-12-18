@@ -12,7 +12,6 @@ export async function GET(req) {
   const user = await getSessionUser();
   await dbConnect();
   const account = await Account.findOne({ userId: user._id, currentlyActive: true });
-  console.log('account::', account);
   const accessToken = account.accessJwt;
   await agent.resumeSession({ 
     accessJwt: accessToken, 

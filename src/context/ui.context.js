@@ -5,12 +5,14 @@ const UiContext = createContext();
 export const MODALS = {
   REQUIRE_LOGIN: 'requireLogin',
   CONNECT_ACCOUNT: 'connectAccount',
+  SETTINGS: 'settings',
 };
 
 const initialState = {
   modals: {
     [MODALS.REQUIRE_LOGIN]: false,
     [MODALS.CONNECT_ACCOUNT]: false,
+    [MODALS.SETTINGS]: false,
   },
   modalData: null,
 };

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TbBell,
   TbColumns,
@@ -21,6 +21,7 @@ import './AddColumn.scss';
 import classNames from 'classnames';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addColumn } from '@/services/api.service';
+import { useAuth } from '@/context/auth.context';
 
 const ColumnOption = ({ icon, title, description, onClick, isLocked }) => {
   return (
@@ -80,6 +81,14 @@ const columns = [
     icon: <TbNews {...iconProps} />,
   },
   {
+    title: 'Profile Posts',
+    description: 'View posts from a user or a list of users',
+    type: 'feed',
+    feedType: 'posts',
+    columnType: 'profilePosts',
+    icon: <TbUser {...iconProps} />,
+  },
+  {
     title: 'What\'s Hot',
     description: 'View what\'s hot from your feed',
     type: 'feed',
@@ -97,6 +106,15 @@ const columns = [
   //   icon: <TbHome {...iconProps} />,
   //   isLocked: true,
   // },
+  {
+    title: 'User Feeds',
+    description: 'View a user\'s feed',
+    type: 'feed',
+    feedType: 'posts',
+    columnType: 'userFeeds',
+    icon: <TbUser {...iconProps} />,
+    isLocked: true,
+  },
   {
     title: 'My Likes',
     description: 'View your liked posts',
@@ -147,6 +165,7 @@ const columns = [
 
 export default function AddColumn() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isConnected } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -161,24 +180,41 @@ export default function AddColumn() {
   });
 
   const handleAddNewColumn = (column) => () => {
-    // if (column.isLocked) {
-    //   return;
-    // }
+    if (column.isLocked && !isConnected) {
+      return;
+    }
     addColumnMutation.mutate({
       column: {
         title: column.title,
         type: column.type,
-        size: 350,
+        size: 450,
         feedType: column.feedType,
         columnType: column.columnType,
       },
     });
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.querySelector('.core-layout').classList.add('overshadow');
+    } else {
+      document.querySelector('.core-layout').classList.remove('overshadow');
+    }
+  }, [isOpen]);
+
+  const showOpenButton = () => {
+    setIsOpen(true);
+    const container = document.querySelector('.main-container');
+    container.scrollTo({
+      left: container.scrollWidth,
+      behavior: 'smooth',
+    });
+  }
+
   return (
     <div className={classNames('add-column', { isopen: isOpen })}>
       {!isOpen && (
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <button onClick={showOpenButton} id='add-column-button'>
           <TbColumns3 size={20} />
           <span>Add Column</span>
         </button>

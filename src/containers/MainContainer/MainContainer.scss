@@ -6,7 +6,7 @@
     flex-wrap: nowrap;
     width: calc(100vw - 70px);
     padding: 12px;
-    background: #f1f1f1;
+    background: var(--background-alt-light);
     gap: 12px;
 
     .column-wrapper-loader{

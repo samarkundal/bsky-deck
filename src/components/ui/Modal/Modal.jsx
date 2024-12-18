@@ -3,7 +3,7 @@ import './Modal.scss';
 import { TbX } from 'react-icons/tb';
 import { motion } from 'framer-motion';
 
-export default function Modal({ children, open, onClose, title }) {
+export default function Modal({ children, open, onClose, title, width = 500 }) {
   const handleClose = () => {
     onClose();
   };
@@ -20,6 +20,9 @@ export default function Modal({ children, open, onClose, title }) {
         initial={{ opacity: 1, translateY: 50 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 0.3 }}
+        style={{
+          width: `${width}px`,
+        }}
       >
         <div className="close-icon">
           <TbX size={20} onClick={handleClose} />

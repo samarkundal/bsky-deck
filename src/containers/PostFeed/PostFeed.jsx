@@ -1,11 +1,11 @@
 import React from 'react';
 import BskyPost from '../BskyPost/BskyPost';
 
-export default function PostFeed({ feed = [], cursor }) {
+export default function PostFeed({ columnId, feed = [], cursor }) {
   return (
     <div className="post-feed">
-      {feed.map(({ post }) => {
-        return <BskyPost post={post} key={post.uri} />;
+      {feed.map(({ post }, index) => {
+        return <BskyPost post={post} key={`${columnId}-${index}-${post.uri}`} />;
       })}
     </div>
   );

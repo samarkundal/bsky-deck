@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PostHogProvider } from '../PostHogProvider';
 import Sidebar from '@/components/core/Sidebar/Sidebar';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -12,6 +12,11 @@ import ModalWrapper from '@/containers/modals/ModalWrapper';
 
 const queryClient = new QueryClient();
 export default function layout({ children }) {
+
+  useEffect(() => {
+    // observe the div with class name 'add-column'
+  }, []);
+
   return (
     <div>
       <PostHogProvider>
@@ -23,6 +28,7 @@ export default function layout({ children }) {
                   <Sidebar />
                 </div>
                 {children}
+              <div className="overshadow-wrapper"></div>
               </div>
               <ModalWrapper />
             </UiProvider>

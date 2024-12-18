@@ -22,9 +22,11 @@
     "motion": "^11.14.4",
     "next": "15.1.0",
     "posthog-js": "^1.199.0",
+    "rc-tabs": "^15.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-select": "^5.9.0",
     "react-toastify": "^10.0.6",
     "sass": "^1.82.0",
     "uuid": "^11.0.3"

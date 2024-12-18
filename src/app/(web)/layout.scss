@@ -1,5 +1,8 @@
 .columns-wrapper{
     .columns-layout{
         height: calc(100vh - 64px);
+        &.overshadow{
+
+        }
     }
 }

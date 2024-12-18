@@ -14,6 +14,6 @@ export async function GET(req) {
       displayName: account.displayName,
       currentlyActive: account.currentlyActive,
     };
-  });
+  }).filter((a) => a.did);
   return NextResponse.json(list);
 }

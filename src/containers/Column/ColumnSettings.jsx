@@ -19,7 +19,7 @@ import {
   reorderColumn,
   updateColumn,
 } from '@/services/api.service';
-import { HashtagInput, SearchInput } from './Elements';
+import { HashtagInput, SearchInput, SelectFeeds, SelectInput, SelectUserAccounts } from './Elements';
 
 const CheckboxOption = ({ label, value, checked, onChange }) => {
   return (
@@ -154,6 +154,29 @@ export default function ColumnSettings({ column, onHide }) {
 
   const isPostFeed = column.feedType === 'posts';
 
+  const handleUsersChange = (users) => {
+    const userIds = users.map((user) => user.value);
+    updateColumnMutation.mutate({
+      columnId: column._id,
+      update: {
+        params: {
+          users,
+        },
+      },
+    });
+  };
+
+  const handleFeedChange = (feed) => {
+    updateColumnMutation.mutate({
+      columnId: column._id,
+      update: {
+        params: {
+          feed,
+        },
+      },
+    });
+  };
+
   return (
     <div className="column-settings">
       <button className="close-icon" onClick={onHide}>
@@ -191,6 +214,28 @@ export default function ColumnSettings({ column, onHide }) {
           />
         </div>
       )}
+
+      <div className="single-setting search-query">
+        <h4>Select User Accounts</h4>
+        {/* <SelectInput
+          options={[]}
+          value={column.params?.tags}
+          onChange={handleSettingUpdate('params.tags')}
+        /> */}
+        <SelectUserAccounts
+          onChange={handleUsersChange}
+          value={column.params?.users}
+        />
+      </div>
+
+      <div className="single-setting search-query">
+        <h4>Select User Feeds</h4>
+        <SelectFeeds
+          onChange={handleFeedChange}
+          value={column.params?.feed}
+        />
+      </div>
+      
 
       {isPostFeed && (
         <div className="single-setting">

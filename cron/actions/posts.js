@@ -43,12 +43,13 @@ const fetchPosts = async () => {
   console.timeEnd('fetchPosts');
   const result = await db.collection('top_posts').insertMany(allPosts);
   const insertedIds = Object.values(result.insertedIds);
-  await db.collection('fetches').insertOne({
+  const fetched = await db.collection('fetches').insertOne({
     date: new Date(),
     count: allPosts.length,
     insertedIds: insertedIds,
   });
   console.log('insertedIds', insertedIds);
+  console.log('fetched', fetched);
 };
 
 module.exports = fetchPosts;

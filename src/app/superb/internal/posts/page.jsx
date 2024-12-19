@@ -8,6 +8,7 @@ import configProvider from '../../../../../config';
 import UserSession from './UserSession/UserSession';
 
 const getPostsForFirst100Profiles = async () => {
+  'use server';
   const client = new MongoClient('mongodb://localhost:27017');
   await client.connect();
   const db = client.db(configProvider.posts_db);
@@ -22,6 +23,8 @@ const getPostsForFirst100Profiles = async () => {
   }).sort({ 'post.indexedAt': -1 }).toArray();
   return JSON.parse(JSON.stringify(posts));
 };
+
+export const dynamic = 'force-dynamic';
 
 export default async function page() {
   const sortedPosts = await getPostsForFirst100Profiles();

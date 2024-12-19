@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import './BskyPost.scss';
 import { TbHeart, TbMessage, TbRepeat } from 'react-icons/tb';

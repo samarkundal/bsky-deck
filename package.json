@@ -6,12 +6,14 @@
     "dev": "next dev -p 3040",
     "build": "next build",
     "start": "next start -p 3040",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cron": "node cron/index.js"
   },
   "dependencies": {
     "@atproto/api": "^0.13.20",
     "@next/third-parties": "^15.1.0",
     "@tanstack/react-query": "^5.62.7",
+    "antd": "^5.22.5",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "framer-motion": "^11.14.4",
@@ -21,6 +23,7 @@
     "mongoose": "^8.8.4",
     "motion": "^11.14.4",
     "next": "15.1.0",
+    "node-cron": "^3.0.3",
     "posthog-js": "^1.199.0",
     "rc-tabs": "^15.5.0",
     "react": "^19.0.0",
